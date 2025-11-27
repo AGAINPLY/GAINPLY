@@ -1,0 +1,58 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GAINPLY | Games</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+</head>
+<body class="games-page">
+  <div class="container">
+    <header class="page-header">
+      <h1 class="big-title">start</h1>
+      <a href="index.html" class="back-home">← GAINPLY</a>
+    </header>
+
+    <div class="games-grid">
+      <!-- Game Card Example -->
+      <div class="game-card">
+        <img src="assets/games/hyperrun-thumb.jpg" alt="Hyper Run" />
+        <h3>Hyper Run</h3>
+        <p>Endless runner with insane speed & style</p>
+        <button onclick="openGameModal('Hyper Run')">View Details</button>
+      </div>
+
+      <div class="game-card">
+        <img src="assets/games/neonblade-thumb.jpg" alt="Neon Blade" />
+        <h3>Neon Blade</h3>
+        <p>Cyberpunk action slasher</p>
+        <button onclick="openGameModal('Neon Blade')">View Details</button>
+      </div>
+      <!-- Add more games -->
+    </div>
+  </div>
+
+  <!-- Game Modal -->
+  <div id="gameModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle">Game Name</h2>
+      <div class="modal-gallery">
+        <img id="mainImg" src="" alt="" />
+      </div>
+      <p id="modalDesc">Game description here...</p>
+      <div class="download-buttons">
+        <a href="#" id="apkLink" class="btn-download">Download APK</a>
+        <a href="#" id="obbLink" class="btn-download obb">Download OBB (if needed)</a>
+      </div>
+      <div class="video-embed">
+        <iframe id="gameVideo" src="" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
