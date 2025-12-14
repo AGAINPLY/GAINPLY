@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastery | Bhavesh</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: rgba(20, 20, 20, 0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: #b0b0b0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #fff;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 5%;
+    }
+
+    .page > h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: #fff;
+    }
+
+    .page > p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: #c0c0c0;
+      max-width: 800px;
+    }
+
+    .page > ul {
+      margin-left: 2rem;
+      margin-bottom: 3rem;
+      color: #c0c0c0;
+    }
+
+    .page > ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .mastery-blocks {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .mastery-block {
+      background: rgba(30, 30, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: transform 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+
+    .mastery-block:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .mastery-block h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .mastery-block p {
+      color: #b0b0b0;
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    .mastery-block ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .mastery-block ul li {
+      padding: 0.5rem 0;
+      color: #a0a0a0;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .mastery-block ul li:before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: #fff;
+    }
+
+    /* Documentation Page Styles */
+    .doc-page {
+      display: none;
+    }
+
+    .doc-page.active {
+      display: flex;
+      gap: 2rem;
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: rgba(30, 30, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .sidebar h3 {
+      color: #fff;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-menu li {
+      padding: 0.8rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: #b0b0b0;
+      font-size: 0.95rem;
+    }
+
+    .sidebar-menu li:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+
+    .sidebar-menu li.active {
+      background: rgba(70, 130, 180, 0.2);
+      color: #fff;
+      border-left: 3px solid #4682b4;
+      padding-left: 0.6rem;
+    }
+
+    .doc-content {
+      flex: 1;
+      background: rgba(30, 30, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2.5rem;
+      min-height: 600px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(30, 30, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s;
+    }
+
+    .back-btn:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateX(-5px);
+    }
+
+    .doc-content h2 {
+      color: #fff;
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .doc-content h3 {
+      color: #fff;
+      font-size: 1.6rem;
+      margin: 2rem 0 1rem 0;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .doc-content h4 {
+      color: #e0e0e0;
+      font-size: 1.3rem;
+      margin: 1.5rem 0 0.8rem 0;
+    }
+
+    .doc-content p {
+      color: #c0c0c0;
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+    }
+
+    .doc-content ul {
+      margin-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .doc-content ul li {
+      color: #b0b0b0;
+      margin-bottom: 0.8rem;
+      line-height: 1.7;
+    }
+
+    .doc-content code {
+      background: rgba(15, 15, 15, 0.8);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      color: #4ec9b0;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.9rem;
+    }
+
+    .doc-content pre {
+      background: rgba(15, 15, 15, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .doc-content pre code {
+      background: none;
+      padding: 0;
+      color: #e0e0e0;
+    }
+
+    .note-box {
+      background: rgba(70, 130, 180, 0.1);
+      border-left: 4px solid #4682b4;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+
+    .note-box p {
+      margin: 0;
+      color: #b0d4f1;
+    }
+
+    .warning-box {
+      background: rgba(218, 165, 32, 0.1);
+      border-left: 4px solid #daa520;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+
+    .warning-box p {
+      margin: 0;
+      color: #f4d98a;
+    }
+
+    .pdf-section {
+      background: rgba(40, 40, 40, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .pdf-section h4 {
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .pdf-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .pdf-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(20, 20, 20, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .pdf-item:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateX(5px);
+    }
+
+    .pdf-icon {
+      font-size: 2rem;
+    }
+
+    .pdf-info h5 {
+      color: #fff;
+      margin-bottom: 0.3rem;
+      font-size: 1.1rem;
+    }
+
+    .pdf-info p {
+      color: #808080;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    .upload-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(70, 130, 180, 0.3);
+      border: 1px solid rgba(70, 130, 180, 0.5);
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      margin-top: 1rem;
+    }
+
+    .upload-btn:hover {
+      background: rgba(70, 130, 180, 0.5);
+    }
+
+    .upload-btn input[type="file"] {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(20, 20, 20, 0.95);
+      color: #808080;
+      margin-top: 4rem;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      .doc-page.active {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        position: relative;
+        top: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .page > h1 {
+        font-size: 2rem;
+      }
+
+      .mastery-blocks {
+        grid-template-columns: 1fr;
+      }
+
+      .doc-content {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h2 class="logo">Bhavesh</h2>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">Mastery</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Overview Page -->
+  <section id="overview" class="page fade-in">
+    <h1>Mastery</h1>
+    <p>I'm a professional game developer specializing in mobile games, Unity development, and interactive design. I enjoy creating new mechanics, experimenting with visuals, and telling stories through gameplay.</p>
+    <p>My expertise includes:</p>
+    <ul>
+      <li>Unity & C# programming</li>
+      <li>Mobile game optimization</li>
+      <li>2D/3D level design</li>
+      <li>Firebase & multiplayer integration</li>
+    </ul>
+
+    <div class="mastery-blocks">
+      <div class="mastery-block" onclick="showDocumentation('animation')">
+        <h3>Animation</h3>
+        <p>Bringing characters and environments to life through fluid motion and expressive movement.</p>
+        <ul>
+          <li>Character rigging & skeletal animation</li>
+          <li>Unity Animator & Animation Controller</li>
+          <li>Procedural animation techniques</li>
+          <li>Timeline & cutscene creation</li>
+          <li>Particle systems & VFX</li>
+        </ul>
+      </div>
+
+      <div class="mastery-block" onclick="showDocumentation('programming')">
+        <h3>Programming</h3>
+        <p>Building robust, scalable systems that power engaging gameplay experiences.</p>
+        <ul>
+          <li>C# architecture & design patterns</li>
+          <li>Performance optimization</li>
+          <li>AI & pathfinding algorithms</li>
+          <li>Backend integration & APIs</li>
+          <li>Multiplayer networking</li>
+        </ul>
+      </div>
+
+      <div class="mastery-block" onclick="showDocumentation('gamedesign')">
+        <h3>Game Design</h3>
+        <p>Crafting compelling gameplay loops and player experiences through thoughtful design.</p>
+        <ul>
+          <li>Game mechanics & balancing</li>
+          <li>Level design & pacing</li>
+          <li>Player psychology & engagement</li>
+          <li>UI/UX design principles</li>
+          <li>Narrative integration</li>
+        </ul>
+      </div>
+
+      <div class="mastery-block" onclick="showDocumentation('technicalart')">
+        <h3>Technical Art</h3>
+        <p>Bridging the gap between art and code to create stunning visuals with optimal performance.</p>
+        <ul>
+          <li>Shader programming & effects</li>
+          <li>Material creation & optimization</li>
+          <li>Lighting & post-processing</li>
+          <li>Asset pipeline development</li>
+          <li>Mobile rendering techniques</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Animation Documentation Page -->
+  <section id="animation-doc" class="page doc-page">
+    <div class="sidebar">
+      <h3>Animation</h3>
+      <ul class="sidebar-menu">
+        <li class="active" onclick="loadTopic('animation', 'intro', this)">Introduction</li>
+        <li onclick="loadTopic('animation', 'character', this)">Character Animation</li>
+        <li onclick="loadTopic('animation', 'rigging', this)">Rigging & Skinning</li>
+        <li onclick="loadTopic('animation', 'procedural', this)">Procedural Animation</li>
+        <li onclick="loadTopic('animation', 'animator', this)">Unity Animator</li>
+        <li onclick="loadTopic('animation', 'timeline', this)">Timeline & Cinematics</li>
+        <li onclick="loadTopic('animation', 'vfx', this)">VFX & Particles</li>
+      </ul>
+    </div>
+    <div class="doc-content" id="animation-content">
+      <button class="back-btn" onclick="showOverview()">← Back to Mastery</button>
+      <h2>Animation Documentation</h2>
+      <p>Welcome to the Animation learning path. This section covers everything from basic character animation to advanced procedural techniques and visual effects.</p>
+      
+      <h3>What You'll Learn</h3>
+      <ul>
+        <li>Character rigging and skeletal animation fundamentals</li>
+        <li>Unity's Animator Controller and state machines</li>
+        <li>Procedural animation techniques for dynamic gameplay</li>
+        <li>Timeline and Cinemachine for cutscenes</li>
+        <li>Particle systems and visual effects creation</li>
+      </ul>
+
+      <div class="note-box">
+        <p><strong>Note:</strong> Start with the Introduction and work through each topic sequentially for the best learning experience.</p>
+      </div>
+
+      <div class="pdf-section">
+        <h4>📚 Learning Resources</h4>
+        <ul class="pdf-list" id="animation-pdfs">
+          <li class="pdf-item">
+            <span class="pdf-icon">📄</span>
+            <div class="pdf-info">
+              <h5>Unity Animation Fundamentals</h5>
+              <p>Comprehensive guide to Unity's animation system</p>
+            </div>
+          </li>
+          <li class="pdf-item">
+            <span class="pdf-icon">📄</span>
+            <div class="pdf-info">
+              <h5>Character Rigging Best Practices</h5>
+              <p>Professional rigging techniques for games</p>
+            </div>
+          </li>
+        </ul>
+        <label class="upload-btn">
+          📎 Upload PDF
+          <input type="file" accept=".pdf" onchange="handleFileUpload(event, 'animation')">
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programming Documentation Page -->
+  <section id="programming-doc" class="page doc-page">
+    <div class="sidebar">
+      <h3>Programming</h3>
+      <ul class="sidebar-menu">
+        <li class="active" onclick="loadTopic('programming', 'intro', this)">Introduction</li>
+        <li onclick="loadTopic('programming', 'csharp', this)">C# Fundamentals</li>
+        <li onclick="loadTopic('programming', 'patterns', this)">Design Patterns</li>
+        <li onclick="loadTopic('programming', 'data', this)">Data Structures</li>
+        <li onclick="loadTopic('programming', 'ai', this)">AI & Pathfinding</li>
+        <li onclick="loadTopic('programming', 'multiplayer', this)">Multiplayer</li>
+        <li onclick="loadTopic('programming', 'optimization', this)">Optimization</li>
+      </ul>
+    </div>
+    <div class="doc-content" id="programming-content">
+      <button class="back-btn" onclick="showOverview()">← Back to Mastery</button>
+      <h2>Programming Documentation</h2>
+      <p>Master game programming with C#, Unity, and industry-standard development practices.</p>
+
+      <h3>Core Topics</h3>
+      <ul>
+        <li>C# programming and Unity scripting lifecycle</li>
+        <li>Software design patterns and architecture</li>
+        <li>Efficient data structures for game systems</li>
+        <li>AI behavior and pathfinding algorithms</li>
+        <li>Multiplayer networking and synchronization</li>
+        <li>Performance profiling and optimization</li>
+      </ul>
+
+      <div class="pdf-section">
+        <h4>📚 Learning Resources</h4>
+        <ul class="pdf-list" id="programming-pdfs">
+          <li class="pdf-item">
+            <span class="pdf-icon">📄</span>
+            <div class="pdf-info">
+              <h5>C# for Unity Developers</h5>
+              <p>Complete C# programming guide for game development</p>
+            </div>
+          </li>
+        </ul>
+        <label class="upload-btn">
+          📎 Upload PDF
+          <input type="file" accept=".pdf" onchange="handleFileUpload(event, 'programming')">
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Game Design Documentation Page -->
+  <section id="gamedesign-doc" class="page doc-page">
+    <div class="sidebar">
+      <h3>Game Design</h3>
+      <ul class="sidebar-menu">
+        <li class="active" onclick="loadTopic('gamedesign', 'intro', this)">Introduction</li>
+        <li onclick="loadTopic('gamedesign', 'mechanics', this)">Core Mechanics</li>
+        <li onclick="loadTopic('gamedesign', 'level', this)">Level Design</li>
+        <li onclick="loadTopic('gamedesign', 'psychology', this)">Player Psychology</li>
+        <li onclick="loadTopic('gamedesign', 'uiux', this)">UI/UX Design</li>
+        <li onclick="loadTopic('gamedesign', 'balancing', this)">Game Balancing</li>
+        <li onclick="loadTopic('gamedesign', 'narrative', this)">Narrative Design</li>
+      </ul>
+    </div>
+    <div class="doc-content" id="gamedesign-content">
+      <button class="back-btn" onclick="showOverview()">← Back to Mastery</button>
+      <h2>Game Design Documentation</h2>
+      <p>Learn to create compelling gameplay experiences through thoughtful design and player psychology.</p>
+
+      <h3>Design Principles</h3>
+      <ul>
+        <li>Core gameplay loops and mechanics</li>
+        <li>Level design and environmental storytelling</li>
+        <li>Understanding player motivation and engagement</li>
+        <li>Creating intuitive user interfaces</li>
+        <li>Balancing difficulty and progression</li>
+        <li>Integrating narrative into gameplay</li>
+      </ul>
+
+      <div class="pdf-section">
+        <h4>📚 Learning Resources</h4>
+        <ul class="pdf-list" id="gamedesign-pdfs">
+          <li class="pdf-item">
+            <span class="pdf-icon">📄</span>
+            <div class="pdf-info">
+              <h5>Game Design Fundamentals</h5>
+              <p>Essential principles of game design</p>
+            </div>
+          </li>
+        </ul>
+        <label class="upload-btn">
+          📎 Upload PDF
+          <input type="file" accept=".pdf" onchange="handleFileUpload(event, 'gamedesign')">
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Art Documentation Page -->
+  <section id="technicalart-doc" class="page doc-page">
+    <div class="sidebar">
+      <h3>Technical Art</h3>
+      <ul class="sidebar-menu">
+        <li class="active" onclick="loadTopic('technicalart', 'intro', this)">Introduction</li>
+        <li onclick="loadTopic('technicalart', 'shaders', this)">Shader Programming</li>
+        <li onclick="loadTopic('technicalart', 'materials', this)">Material Systems</li>
+        <li onclick="loadTopic('technicalart', 'postfx', this)">Post-Processing</li>
+        <li onclick="loadTopic('technicalart', 'pipeline', this)">Asset Pipeline</li>
+        <li onclick="loadTopic('technicalart', 'mobile', this)">Mobile Rendering</li>
+        <li onclick="loadTopic('technicalart', 'lighting', this)">Lighting Systems</li>
+      </ul>
+    </div>
+    <div class="doc-content" id="technicalart-content">
+      <button class="back-btn" onclick="showOverview()">← Back to Mastery</button>
+      <h2>Technical Art Documentation</h2>
+      <p>Bridge the gap between art and code to create stunning visuals with optimal performance.</p>
+
+      <h3>Technical Skills</h3>
+      <ul>
+        <li>Custom shader programming in HLSL/ShaderLab</li>
+        <li>PBR and stylized material creation</li>
+        <li>Post-processing effects and visual polish</li>
+        <li>Efficient asset pipeline development</li>
+        <li>Mobile graphics optimization techniques</li>
+        <li>Lighting setup and baking strategies</li>
+      </ul>
+
+      <div class="pdf-section">
+        <h4>📚 Learning Resources</h4>
+        <ul class="pdf-list" id="technicalart-pdfs">
+          <li class="pdf-item">
+            <span class="pdf-icon">📄</span>
+            <div class="pdf-info">
+              <h5>Shader Programming Guide</h5>
+              <p>From basics to advanced shader techniques</p>
+            </div>
+          </li>
+        </ul>
+        <label class="upload-btn">
+          📎 Upload PDF
+          <input type="file" accept=".pdf" onchange="handleFileUpload(event, 'technicalart')">
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Bhavesh. All rights reserved.</p>
+  </footer>
+
+  <script>
+    let currentCategory = '';
+    const uploadedFiles = {
+      animation: [],
+      programming: [],
+      gamedesign: [],
+      technicalart: []
+    };
+
+    function showDocumentation(category) {
+      document.getElementById('overview').classList.add('hidden');
+      document.getElementById(`${category}-doc`).classList.add('active');
+      currentCategory = category;
+      window.scrollTo(0, 0);
+    }
+
+    function showOverview() {
+      const docPages = document.querySelectorAll('.doc-page');
+      docPages.forEach(page => page.classList.remove('active'));
+      document.getElementById('overview').classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+
+    function loadTopic(category, topic, element) {
+      const menuItems = element.parentElement.querySelectorAll('li');
+      menuItems.forEach(item => item.classList.remove('active'));
+      element.classList.add('active');
+
+      const content = document.getElementById(`${category}-content`);
+      const topicContent = getTopicContent(category, topic);
+      
+      content.innerHTML = `
+        <button class="back-btn" onclick="showOverview()">← Back to Mastery</button>
+        ${topicContent}
+        <div class="pdf-section">
+          <h4>📚 Learning Resources</h4>
+          <ul class="pdf-list" id="${category}-pdfs">
+            ${renderPdfList(category)}
+          </ul>
+          <label class="upload-btn">
+            📎 Upload PDF
+            <input type="file" accept=".pdf" onchange="handleFileUpload(event, '${category}')">
+          </label>
+        </div>
+      `;
+    }
+
+    function getTopicContent(category, topic) {
+      const contents = {
+        animation: {
+          intro: '<h2>Animation Documentation</h2><p>Welcome to animation learning...</p>',
+          character: '<h2>Character Animation</h2><p>Learn to create fluid character movements...</p><h3>Key Concepts</h3><ul><li>Animation states and transitions</li><li>Blend trees for smooth movement</li><li>Root motion vs in-place animation</li></ul>',
+          rigging: '<h2>Rigging & Skinning</h2><p>Setup character rigs for animation...</p>',
+        },
+        programming: {
+          intro: '<h2>Programming Documentation</h2><p>Master C# and Unity programming...</p>',
+          csharp: '<h2>C# Fundamentals</h2><p>Core programming concepts...</p><h3>Topics Covered</h3><ul><li>Variables, types, and operators</li><li>Control flow and loops</li><li>Functions and classes</li><li>Unity scripting lifecycle</li></ul>',
+        }
+      };
+      
+      return contents[category]?.[topic] || '<h2>Content Loading...</h2><p>Documentation for this topic is being prepared.</p>';
+    }
+
+    function handleFileUpload(event, category) {
+      const file = event.target.files[0];
+      if (file && file.type === 'application/pdf') {
+        uploadedFiles[category].push({
+          name: file.name,
+          size: (file.size / 1024).toFixed(2) + ' KB',
+          date: new Date().toLocaleDateString()
+        });
+        
+        const pdfList = document.getElementById(`${category}-pdfs`);
+        if (pdfList) {
+          pdfList.innerHTML = renderPdfList(category);
+        }
+        
+        alert(`PDF "${file.name}" uploaded successfully!`);
+      }
+      event.target.value = '';
+    }
+
+    function renderPdfList(category) {
+      const defaultPdfs = {
+        animation: [
+          { name: 'Unity Animation Fundamentals', size: '2.5 MB', desc: 'Comprehensive guide to Unity\'s animation system' },
+          { name: 'Character Rigging Best Practices', size: '3.2 MB', desc: 'Professional rigging techniques for games' }
+        ],
+        programming: [
+          { name: 'C# for Unity Developers', size: '4.1 MB', desc: 'Complete C# programming guide for game development' }
+        ],
+        gamedesign: [
+          { name: 'Game Design Fundamentals', size: '2.8 MB', desc: 'Essential principles of game design' }
+        ],
+        technicalart: [
+          { name: 'Shader Programming Guide', size: '5.5 MB', desc: 'From basics to advanced shader techniques' }
+        ]
+      };
+
+      const allPdfs = [...(defaultPdfs[category] || []), ...uploadedFiles[category]];
+      
+      return allPdfs.map(pdf => `
+        <li class="pdf-item">
+          <span class="pdf-icon">📄</span>
+          <div class="pdf-info">
+            <h5>${pdf.name}</h5>
+            <p>${pdf.desc || pdf.size}</p>
+          </div>
+        </li>
+      `).join('');
+    }
+  </script>
