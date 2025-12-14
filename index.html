@@ -1,74 +1,71 @@
-html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gainply - Gain While You Play</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bhavesh Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="main-menu" class="active">
-        <h1 class="title">GAINPLY</h1>
-        <p class="subtitle">gain while you play</p>
-        <div class="buttons">
-            <button id="start-btn" class="menu-btn">start</button>
-            <button id="info-btn" class="menu-btn">info</button>
-        </div>
-    </div>
+  <!-- Navbar -->
+  <nav>
+    <h2 class="logo">Bhavesh</h2>
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="Mastery.html">Mastery</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Find Me</a></li>
+    </ul>
+  </nav>
 
-    <div id="start-section" class="section hidden">
-        <h2 class="section-title">Our Games</h2>
-        <div class="games-container">
-            <!-- Placeholder for Game 1 -->
-            <div class="game-card">
-                <img src="https://via.placeholder.com/300x200?text=Game+1+Screenshot" alt="Game 1 Screenshot" class="game-image">
-                <h3 class="game-title">Game 1: Adventure Quest</h3>
-                <p class="game-description">Embark on an epic adventure where you gain rewards while playing exciting levels. Perfect for mobile gamers!</p>
-                <div class="game-media">
-                    <video width="300" height="200" controls>
-                        <source src="https://example.com/game1-trailer.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div class="downloads">
-                    <a href="https://example.com/game1.apk" download class="download-btn">Download APK</a>
-                    <a href="https://example.com/game1.obb" download class="download-btn">Download OBB</a>
-                </div>
-            </div>
-            <!-- Placeholder for Game 2 -->
-            <div class="game-card">
-                <img src="https://via.placeholder.com/300x200?text=Game+2+Screenshot" alt="Game 2 Screenshot" class="game-image">
-                <h3 class="game-title">Game 2: Puzzle Master</h3>
-                <p class="game-description">Solve mind-bending puzzles and earn points to unlock new challenges. Gain while you think!</p>
-                <div class="game-media">
-                    <video width="300" height="200" controls>
-                        <source src="https://example.com/game2-trailer.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div class="downloads">
-                    <a href="https://example.com/game2.apk" download class="download-btn">Download APK</a>
-                    <a href="https://example.com/game2.obb" download class="download-btn">Download OBB</a>
-                </div>
-            </div>
-            <!-- Add more games as needed -->
-        </div>
-        <button id="back-to-menu" class="back-btn">← Back to Menu</button>
+  <!-- Hero -->
+  <div class="hero fade-in">
+    <div class="hero-content">
+      <h1 class="sanskrit">Bhavesh</h1>
+      <p>Professional Game Developer | Creative Coder | Designer</p>
     </div>
+  </div>
 
-    <div id="info-section" class="section hidden">
-        <h2 class="section-title">Connect With Us</h2>
-        <div class="social-links">
-            <a href="https://instagram.com/gainply" target="_blank" class="social-btn">Instagram</a>
-            <a href="https://discord.gg/gainply" target="_blank" class="social-btn">Discord</a>
-            <a href="https://youtube.com/gainply" target="_blank" class="social-btn">YouTube</a>
-        </div>
-        <p class="info-text">Follow us for updates, behind-the-scenes, and more ways to gain while you play!</p>
-        <button id="back-to-menu-info" class="back-btn">← Back to Menu</button>
+  <!-- Projects preview -->
+  <section class="fade-in">
+    <h2>My Game Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card"
+           data-title="Spider Fuser"
+           data-desc="A fast-paced action game where you control a spider with fusion powers."
+           data-video="">
+        <img src="PATH_TO_IMAGE" alt="Spider Fuser">
+        <h3>labber</h3>
+      </div>
+
+      <div class="project-card"
+           data-title="Ocean Adventure"
+           data-desc="Explore the deep sea with realistic physics and stunning visuals."
+           data-video="https://www.youtube.com/embed/abcd1234">
+        <img src="images/project2.png" alt="Ocean Adventure">
+        <h3>ratham</h3>
+      </div>
+
+      <div class="project-card"
+           data-title="Shark Hunter"
+           data-desc="An underwater survival game where players battle against sharks."
+           data-video="">
+        <img src="images/project3.png" alt="Shark Hunter">
+        <h3>memgu</h3>
+      </div>
     </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- Modal -->
+  <div class="project-modal">
+    <div class="project-modal-content"></div>
+    <span class="modal-close">&times;</span>
+  </div>
+
+  <footer>
+    <p>© 2025 Bhavesh. All rights reserved.</p>
+  </footer>
 </body>
 </html>
