@@ -1,35 +1,58 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const mainMenu = document.getElementById('main-menu');
-    const startSection = document.getElementById('start-section');
-    const infoSection = document.getElementById('info-section');
-    const startBtn = document.getElementById('start-btn');
-    const infoBtn = document.getElementById('info-btn');
-    const backToMenuStart = document.getElementById('back-to-menu');
-    const backToMenuInfo = document.getElementById('back-to-menu-info');
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Portfolio site loaded ✔");
 
-    function showSection(section) {
-        mainMenu.classList.remove('active');
-        mainMenu.classList.add('hidden');
-        startSection.classList.add('hidden');
-        infoSection.classList.add('hidden');
-        section.classList.remove('hidden');
+  // NAV ACTIVE LINK
+  const navLinks = document.querySelectorAll("nav a");
+  navLinks.forEach(link => {
+    if (link.href === window.location.href) {
+      link.classList.add("active");
     }
+  });
 
-    function hideSections() {
-        startSection.classList.add('hidden');
-        infoSection.classList.add('hidden');
-        mainMenu.classList.remove('hidden');
-        mainMenu.classList.add('active');
-    }
+  // FADE-IN SCROLL ANIMATION
+  const faders = document.querySelectorAll(".fade-in");
+  const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+  const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    });
+  }, appearOptions);
+  faders.forEach(fader => appearOnScroll.observe(fader));
 
-    startBtn.addEventListener('click', function() {
-        showSection(startSection);
+  // PROJECT MODAL HANDLER
+  const projectCards = document.querySelectorAll(".project-card");
+  const modal = document.querySelector(".project-modal");
+  const modalContent = document.querySelector(".project-modal-content");
+  const modalClose = document.querySelector(".modal-close");
+
+  if (modal && modalContent && modalClose) {
+    projectCards.forEach(card => {
+      card.addEventListener("click", () => {
+        const title = card.dataset.title || "Game Project";
+        const desc = card.dataset.desc || "No description added yet.";
+        const video = card.dataset.video || "";
+
+        modalContent.innerHTML = `
+          <h2>${title}</h2>
+          <p>${desc}</p>
+          ${
+            video
+              ? `<div class="video-wrapper"><iframe width="100%" height="250" src="${video}" frameborder="0" allowfullscreen></iframe></div>`
+              : ""
+          }
+        `;
+        modal.classList.add("open");
+      });
     });
 
-    infoBtn.addEventListener('click', function() {
-        showSection(infoSection);
+    modalClose.addEventListener("click", () => modal.classList.remove("open"));
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.classList.remove("open");
     });
-
-    backToMenuStart.addEventListener('click', hideSections);
-    backToMenuInfo.addEventListener('click', hideSections);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") modal.classList.remove("open");
+    });
+  }
 });
