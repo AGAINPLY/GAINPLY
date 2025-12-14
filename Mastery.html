@@ -4,36 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mastery | Bhavesh</title>
-  <!-- Link to your main CSS -->
-  <link rel="stylesheet" href="style.css"> 
+  
+  <!-- Link to Main CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Link to Main Script -->
+  <script src="script.js" defer></script>
+
   <style>
     /* --- Specific Styles for Mastery Page --- */
     
-    /* Ensure body inherits global styles but add specific overrides if needed */
-    body {
-      background: #0a0a0a;
-      color: #e0e0e0;
-    }
-
-    /* Reuse Nav styles from style.css, but ensure sticky positioning here */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(20, 20, 20, 0.95);
-      backdrop-filter: blur(10px);
-    }
+    /* Safety: Ensure content is visible even if animation script lags */
+    .fade-in { opacity: 1 !important; transform: none !important; }
 
     .page {
       max-width: 1200px;
       margin: 0 auto;
       padding: 4rem 5%;
+      min-height: 80vh;
     }
 
     .page h1 { font-size: 3rem; margin-bottom: 1rem; color: #fff; }
     .page p { color: #b0b0b0; max-width: 800px; line-height: 1.6; }
 
-    /* Mastery Blocks (Grid) */
+    /* Mastery Blocks Grid */
     .mastery-blocks {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -52,7 +45,7 @@
 
     .mastery-block:hover {
       transform: translateY(-5px);
-      border-color: #ffcc00; /* Matching your active color */
+      border-color: #ffcc00;
     }
 
     .mastery-block h3 { color: #fff; font-size: 1.5rem; margin-bottom: 0.5rem; }
@@ -64,11 +57,16 @@
       content: "▹"; position: absolute; left: 0; color: #ffcc00;
     }
 
-    /* Documentation View (Hidden by default) */
-    .doc-page { display: none; gap: 2rem; animation: fadeIn 0.5s ease; }
-    .doc-page.active { display: flex; }
+    /* Documentation View */
+    .doc-page { display: none; gap: 2rem; }
+    .doc-page.active { display: flex; animation: slideUp 0.5s ease; }
 
-    /* Sidebar Navigation */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Sidebar */
     .sidebar {
       width: 250px;
       flex-shrink: 0;
@@ -90,7 +88,7 @@
     .sidebar li:hover { color: white; background: rgba(255,255,255,0.05); }
     .sidebar li.active { background: rgba(255, 204, 0, 0.1); color: #ffcc00; border-left: 3px solid #ffcc00; }
 
-    /* Main Content Area */
+    /* Content Area */
     .doc-content {
       flex: 1;
       background: rgba(255,255,255,0.02);
@@ -135,7 +133,7 @@
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     }
 
-    /* PDF / Resources List */
+    /* Resources List */
     .resources-section {
       background: rgba(255,255,255,0.05);
       padding: 1.5rem;
@@ -153,20 +151,12 @@
       text-decoration: none; color: #ffcc00; font-size: 1.2rem; transition: 0.3s;
     }
     .download-btn:hover { color: white; transform: scale(1.1); }
-    
-    /* File Upload Input */
+
     .upload-box {
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px dashed #555;
+        margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed #555;
     }
-    .upload-box input[type="file"] {
-        color: #aaa;
-    }
+    .upload-box input[type="file"] { color: #aaa; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Mobile Responsive */
     @media(max-width: 768px) {
       .doc-page.active { flex-direction: column; }
       .sidebar { width: 100%; position: relative; top: 0; }
@@ -188,12 +178,12 @@
   </nav>
 
   <!-- OVERVIEW SECTION -->
-  <section id="overview" class="page fade-in">
+  <section id="overview" class="page">
     <h1>Technical Mastery</h1>
     <p>Developing games requires a blend of logic, art, and design. Below is a breakdown of my core competencies. Click on a card to view detailed documentation, code snippets, and video demonstrations.</p>
     
     <div class="mastery-blocks">
-      <!-- Card 1: Animation -->
+      <!-- Card 1 -->
       <div class="mastery-block" onclick="openCategory('animation')">
         <h3>Animation System</h3>
         <p>Advanced character movement and rigging.</p>
@@ -204,7 +194,7 @@
         </ul>
       </div>
 
-      <!-- Card 2: Programming -->
+      <!-- Card 2 -->
       <div class="mastery-block" onclick="openCategory('programming')">
         <h3>Programming (C#)</h3>
         <p>Scalable architecture and clean code.</p>
@@ -215,7 +205,7 @@
         </ul>
       </div>
 
-      <!-- Card 3: Game Design -->
+      <!-- Card 3 -->
       <div class="mastery-block" onclick="openCategory('gamedesign')">
         <h3>Game Design</h3>
         <p>Crafting mechanics and player experiences.</p>
@@ -226,7 +216,7 @@
         </ul>
       </div>
 
-      <!-- Card 4: Technical Art -->
+      <!-- Card 4 -->
       <div class="mastery-block" onclick="openCategory('techart')">
         <h3>Technical Art</h3>
         <p>Bridging the gap between art and code.</p>
@@ -239,13 +229,13 @@
     </div>
   </section>
 
-  <!-- DOCUMENTATION LAYOUT (Generic structure, filled by JS) -->
+  <!-- DOCUMENTATION VIEW -->
   <section id="documentation-view" class="page doc-page">
     <!-- Sidebar -->
     <div class="sidebar">
       <h3 id="sidebar-title">Topic</h3>
       <ul id="sidebar-list">
-        <!-- List items injected via JS -->
+        <!-- Injected via JS -->
       </ul>
     </div>
 
@@ -255,7 +245,7 @@
       
       <!-- Dynamic Content Area -->
       <div id="dynamic-content">
-        <!-- JS renders Image, Video, Text, PDFs here -->
+        <!-- JS renders content here -->
       </div>
     </div>
   </section>
@@ -266,7 +256,6 @@
 
   <script>
     // --- CONTENT DATABASE ---
-    // Update the URLs for images and YouTube IDs here
     const contentDatabase = {
       animation: {
         title: "Animation",
@@ -276,11 +265,10 @@
             label: "Introduction",
             title: "Unity Animation Fundamentals",
             image: "https://picsum.photos/800/400?random=1", 
-            videoID: "dQw4w9WgXcQ", // Example ID (Rick Roll) - Change this!
+            videoID: "dQw4w9WgXcQ", 
             desc: "<p>Animation in Unity is driven by the Mecanim system. This section covers state machines, transitions, and parameters.</p>",
             resources: [
-              { name: "Animation_Basics.pdf", size: "2MB" },
-              { name: "Controller_Setup_Guide.pdf", size: "1.5MB" }
+              { name: "Animation_Basics.pdf", size: "2MB" }
             ]
           },
           {
@@ -288,8 +276,8 @@
             label: "Inverse Kinematics",
             title: "Advanced IK Implementation",
             image: "https://picsum.photos/800/400?random=2",
-            videoID: "", // Leave empty if no video
-            desc: "<p>Inverse Kinematics (IK) allows for procedural foot placement and hand interactions. Essential for realistic movement on uneven terrain.</p><h3>Code Concept:</h3><pre style='background:#111; padding:10px; border-radius:5px;'><code>animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1);</code></pre>",
+            videoID: "", 
+            desc: "<p>Inverse Kinematics (IK) allows for procedural foot placement and hand interactions.</p>",
             resources: []
           }
         ]
@@ -302,20 +290,9 @@
             label: "Design Patterns",
             title: "Singleton & Observer Patterns",
             image: "https://picsum.photos/800/400?random=3",
-            videoID: "tgbNymZ7vqY", // Example ID
-            desc: "<p>Using design patterns ensures your code is decoupled and scalable. The Observer pattern is crucial for Event-based achievements systems.</p>",
-            resources: [
-              { name: "C#_Design_Patterns.pdf", size: "4.2MB" }
-            ]
-          },
-          {
-            id: "prog-ai",
-            label: "AI Systems",
-            title: "Finite State Machines for AI",
-            image: "https://picsum.photos/800/400?random=4",
-            videoID: "",
-            desc: "<p>Creating believable enemies using FSM (Finite State Machines) or Behavior Trees. This ensures modular behavior logic.</p>",
-            resources: []
+            videoID: "tgbNymZ7vqY",
+            desc: "<p>Using design patterns ensures your code is decoupled and scalable.</p>",
+            resources: [{ name: "C#_Design_Patterns.pdf", size: "4.2MB" }]
           }
         ]
       },
@@ -328,10 +305,8 @@
             title: "Pacing and Flow",
             image: "https://picsum.photos/800/400?random=5",
             videoID: "",
-            desc: "<p>Understanding player psychology to guide them through levels using lighting, geometry, and color cues.</p>",
-            resources: [
-                { name: "Level_Design_Doc.pdf", size: "3MB" }
-            ]
+            desc: "<p>Understanding player psychology to guide them through levels.</p>",
+            resources: [{ name: "Level_Design.pdf", size: "3MB" }]
           }
         ]
       },
@@ -344,7 +319,7 @@
             title: "Shader Graph Magic",
             image: "https://picsum.photos/800/400?random=6",
             videoID: "",
-            desc: "<p>Creating water, fire, and holographic effects using Unity Shader Graph without writing raw HLSL.</p>",
+            desc: "<p>Creating water, fire, and holographic effects using Unity Shader Graph.</p>",
             resources: []
           }
         ]
@@ -353,47 +328,37 @@
 
     let currentCategoryData = null;
 
-    // Open the Documentation View
     function openCategory(categoryKey) {
       const data = contentDatabase[categoryKey];
       if (!data) return;
 
       currentCategoryData = data;
-      
-      // Hide Overview, Show Doc Page
       document.getElementById('overview').style.display = 'none';
       document.getElementById('documentation-view').classList.add('active');
-
-      // Set Sidebar Title
       document.getElementById('sidebar-title').innerText = data.title;
 
-      // Populate Sidebar
       const sidebarList = document.getElementById('sidebar-list');
-      sidebarList.innerHTML = ""; // Clear existing
+      sidebarList.innerHTML = ""; 
 
       data.topics.forEach((topic, index) => {
         const li = document.createElement('li');
         li.innerText = topic.label;
-        if (index === 0) li.classList.add('active'); // Select first by default
+        if (index === 0) li.classList.add('active'); 
         li.onclick = () => loadTopicContent(index, li);
         sidebarList.appendChild(li);
       });
 
-      // Load first topic
       loadTopicContent(0, sidebarList.firstChild);
       window.scrollTo(0,0);
     }
 
-    // Close and return to Overview
     function closeCategory() {
       document.getElementById('documentation-view').classList.remove('active');
       document.getElementById('overview').style.display = 'block';
       window.scrollTo(0,0);
     }
 
-    // Load content into the main area
     function loadTopicContent(index, activeListItem) {
-      // Handle active state in sidebar
       const listItems = document.querySelectorAll('#sidebar-list li');
       listItems.forEach(item => item.classList.remove('active'));
       if(activeListItem) activeListItem.classList.add('active');
@@ -401,7 +366,6 @@
       const topic = currentCategoryData.topics[index];
       const contentContainer = document.getElementById('dynamic-content');
 
-      // Generate PDF List HTML
       let pdfHtml = "";
       if (topic.resources && topic.resources.length > 0) {
         pdfHtml = topic.resources.map(res => `
@@ -410,43 +374,29 @@
               <strong>📄 ${res.name}</strong>
               <span>${res.size}</span>
             </div>
-            <a href="#" class="download-btn" title="Download">⬇</a>
+            <a href="#" class="download-btn">⬇</a>
           </div>
         `).join('');
       } else {
-        pdfHtml = "<p style='color:#666; font-style:italic;'>No resources available for this topic.</p>";
+        pdfHtml = "<p style='color:#666; font-style:italic;'>No resources available.</p>";
       }
 
-      // Generate HTML
       contentContainer.innerHTML = `
-        <div class="content-block fade-in">
-          <!-- Image -->
+        <div class="content-block">
           ${topic.image ? `<img src="${topic.image}" class="topic-header-img" alt="${topic.title}">` : ''}
-          
-          <!-- Title -->
           <h2>${topic.title}</h2>
-          
-          <!-- Text Content -->
           <div>${topic.desc}</div>
-
-          <!-- YouTube Video -->
           ${topic.videoID ? `
             <h3>🎥 Video Demo</h3>
             <div class="video-wrapper">
               <iframe src="https://www.youtube.com/embed/${topic.videoID}" frameborder="0" allowfullscreen></iframe>
             </div>
           ` : ''}
-
-          <!-- Resources Section -->
           <div class="resources-section">
-            <h3>📚 Resources & Documentation</h3>
-            <div class="resource-list">
-              ${pdfHtml}
-            </div>
-            
-            <!-- Upload Mockup -->
+            <h3>📚 Resources</h3>
+            <div class="resource-list">${pdfHtml}</div>
             <div class="upload-box">
-              <p style="margin-bottom:0.5rem; font-size:0.9rem; color:#888;">Add to your portfolio (Mock):</p>
+              <p style="margin-bottom:0.5rem; font-size:0.9rem; color:#888;">Add to portfolio:</p>
               <input type="file" id="file-upload" accept=".pdf">
             </div>
           </div>
@@ -454,15 +404,11 @@
       `;
     }
     
-    // Simple mock event for file upload to show interactivity
     document.addEventListener('change', (e) => {
-        if(e.target && e.target.id === 'file-upload') {
-            if(e.target.files.length > 0) {
-                alert(`Mock Upload: "${e.target.files[0].name}" selected.\n(This requires a backend to actually save the file.)`);
-            }
+        if(e.target && e.target.id === 'file-upload' && e.target.files.length > 0) {
+            alert(`File "${e.target.files[0].name}" selected.`);
         }
     });
-
   </script>
 </body>
 </html>
