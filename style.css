@@ -52,7 +52,10 @@ nav a:hover, nav a.active {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: url('https://picsum.photos/1920/1080?grayscale') no-repeat center/cover;
+  background-image: url("images/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
 }
 
