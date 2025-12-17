@@ -197,3 +197,51 @@ footer {
   .hero { height: 60vh; }
   nav ul { gap: 0.5rem; }
 }
+/* --- Contact Page Enhancements --- */
+.contact-card {
+  max-width: 420px;
+  margin: 4rem auto;
+  padding: 2.5rem 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.contact-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 1rem auto;
+  border: 3px solid #ffcc00;
+}
+
+.contact-subtext {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-links a {
+  text-decoration: none;
+  color: white;
+  padding: 0.6rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  transition: all 0.3s ease;
+}
+
+.contact-links a:hover {
+  background: #ffcc00;
+  color: black;
+  transform: translateY(-2px);
+}
